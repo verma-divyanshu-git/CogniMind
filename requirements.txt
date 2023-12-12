@@ -11,3 +11,6 @@ statsmodels==0.14.0
 tensorflow
 tensorflow_intel
 django-compressor
+xgboost
+scikit-learn
+
