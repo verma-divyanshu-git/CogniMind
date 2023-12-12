@@ -1,0 +1,50 @@
+<!-- templates/index.html -->
+{% extends "_base.html" %} {% block content %}
+<div class="bg-white max-w-md mx-auto mt-8 p-6 rounded-md shadow-md">
+  <form method="post" enctype="multipart/form-data" class="space-y-4">
+    {% csrf_token %}
+
+    <div>
+      <label for="csvFile" class="block text-sm font-medium text-gray-700">Drop .csv file:</label>
+      <input type="file" name="csvFile" accept=".csv" required class="mt-1 p-2 border rounded-md w-full" />
+    </div>
+
+    <div>
+      <label for="category" class="block text-sm font-medium text-gray-700">Select Category:</label>
+      <select name="category" id="category" class="mt-1 p-2 border rounded-md w-full">
+        <option value="EO">Eyes Opened</option>
+        <option value="EC">Eyes Closed</option>
+        <option value="T">Task</option>
+      </select>
+    </div>
+
+    <div>
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">
+        Submit
+      </button>
+    </div>
+  </form>
+
+  {% if results %}
+  <div class="bg-gray-200 p-4 rounded-md mt-4">
+    <p class="text-lg text-gray-800">Results:</p>
+    <ul>
+      {% for result in results %}
+      <li>
+        <p class="text-sm text-gray-700">{{ result.model_name }}: {{ result.diagnosis }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+    {% if messages %}
+    <div class="bg-red-200 p-4 rounded-md mt-4">
+      {% for message in messages %}
+      <p class="text-lg text-red-800">{{ message }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
+{% endblock content %}
